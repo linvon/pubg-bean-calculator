@@ -18,7 +18,7 @@ const PAIRINGS = {
 const PEST_MODE_LABELS = {
   duel: "逐个对照",
   split: "三人均摊",
-  tripleTotal: "三人各摊一次总合",
+  tripleTotal: "三人各摊一次总和",
 };
 
 const state = {
