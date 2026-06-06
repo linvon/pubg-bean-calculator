@@ -2,6 +2,8 @@
 
 一个纯静态的 PUBG 豆子局结算页面，支持桌面和手机浏览器直接使用。
 
+线上地址：[https://linvon.github.io/pubg-bean-calculator/](https://linvon.github.io/pubg-bean-calculator/)
+
 ## 功能
 
 - 四名玩家全局配置
@@ -27,6 +29,12 @@
 4. Source 选择 `Deploy from a branch`。
 5. Branch 选择 `main`，目录选择 `/root`。
 6. 保存后等待 GitHub Pages 生成访问地址。
+
+当前项目访问地址：
+
+```text
+https://linvon.github.io/pubg-bean-calculator/
+```
 
 默认访问地址通常是：
 
