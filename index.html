@@ -19,25 +19,27 @@
         </div>
       </header>
 
-      <section class="scoreboard-section" aria-labelledby="scoreboard-title">
-        <div class="section-head">
-          <div>
-            <p class="kicker">TOTAL SCORE</p>
-            <h2 id="scoreboard-title">四人总榜</h2>
+      <section class="top-grid">
+        <section class="scoreboard-section" aria-labelledby="scoreboard-title">
+          <div class="section-head">
+            <div>
+              <p class="kicker">TOTAL SCORE</p>
+              <h2 id="scoreboard-title">四人总榜</h2>
+            </div>
+            <span class="round-counter" id="roundCounter">0 局</span>
           </div>
-          <span class="round-counter" id="roundCounter">0 局</span>
-        </div>
-        <div class="scoreboard" id="scoreboard"></div>
-      </section>
+          <div class="scoreboard" id="scoreboard"></div>
+        </section>
 
-      <section class="panel player-panel" aria-labelledby="players-title">
-        <div class="section-head">
-          <div>
-            <p class="kicker">PLAYER SETUP</p>
-            <h2 id="players-title">本场玩家</h2>
+        <section class="panel player-panel" aria-labelledby="players-title">
+          <div class="section-head">
+            <div>
+              <p class="kicker">PLAYER SETUP</p>
+              <h2 id="players-title">本场玩家</h2>
+            </div>
           </div>
-        </div>
-        <div class="player-name-grid" id="playerNameGrid" aria-label="玩家名字"></div>
+          <div class="player-name-grid" id="playerNameGrid" aria-label="玩家名字"></div>
+        </section>
       </section>
 
       <section class="main-grid">
@@ -50,7 +52,7 @@
             <button class="tool-button" id="resetDraftBtn" type="button">重置本局</button>
           </div>
 
-          <div class="round-card">
+          <div class="round-card mode-card">
             <div class="card-title-row">
               <h3>本局玩法</h3>
               <span id="nextRoundLabel">第 1 局</span>
@@ -65,7 +67,7 @@
             </div>
           </div>
 
-          <div class="round-card">
+          <div class="round-card kill-card">
             <div>
               <h3>四人本局击杀</h3>
               <p class="helper-text small">救人每次 +1，杀队友每次 -1；这两项不跟随吃鸡倍率翻倍。</p>
@@ -73,7 +75,7 @@
             <div class="kill-grid" id="killGrid"></div>
           </div>
 
-          <div class="round-card" id="teamOptions">
+          <div class="round-card options-card" id="teamOptions">
             <div class="card-title-row">
               <h3>2v2 分队</h3>
               <button class="mini-button" id="randomPairingBtn" type="button">随机分队</button>
@@ -81,7 +83,7 @@
             <div class="segmented pair-grid" id="pairingOptions" role="group" aria-label="2v2 分队"></div>
           </div>
 
-          <div class="round-card is-hidden" id="pestOptions">
+          <div class="round-card options-card is-hidden" id="pestOptions">
             <h3>除三害口径</h3>
             <label class="field">
               除害者
