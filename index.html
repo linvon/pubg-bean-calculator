@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PUBG 豆子局结算台</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="kicker">PUBG BEAN DESK</p>
+          <h1>豆子局结算台</h1>
+        </div>
+        <div class="header-actions" aria-label="全局操作">
+          <button class="tool-button" id="undoRoundBtn" type="button">撤销上一局</button>
+          <button class="tool-button danger" id="clearAllBtn" type="button">清空全部</button>
+        </div>
+      </header>
+
+      <section class="scoreboard-section" aria-labelledby="scoreboard-title">
+        <div class="section-head">
+          <div>
+            <p class="kicker">TOTAL SCORE</p>
+            <h2 id="scoreboard-title">四人总榜</h2>
+          </div>
+          <span class="round-counter" id="roundCounter">0 局</span>
+        </div>
+        <div class="scoreboard" id="scoreboard"></div>
+      </section>
+
+      <section class="panel player-panel" aria-labelledby="players-title">
+        <div class="section-head">
+          <div>
+            <p class="kicker">PLAYER SETUP</p>
+            <h2 id="players-title">本场玩家</h2>
+          </div>
+        </div>
+        <div class="player-name-grid" id="playerNameGrid" aria-label="玩家名字"></div>
+      </section>
+
+      <section class="main-grid">
+        <section class="panel input-panel" aria-labelledby="round-title">
+          <div class="section-head">
+            <div>
+              <p class="kicker">NEW ROUND</p>
+              <h2 id="round-title">新一局结算单</h2>
+            </div>
+            <button class="tool-button" id="resetDraftBtn" type="button">重置本局</button>
+          </div>
+
+          <div class="round-card">
+            <div class="card-title-row">
+              <h3>本局玩法</h3>
+              <span id="nextRoundLabel">第 1 局</span>
+            </div>
+            <div class="segmented" role="group" aria-label="本局玩法">
+              <button class="choice is-active" type="button" data-choice-group="roundType" data-value="team">
+                2v2 豆子局
+              </button>
+              <button class="choice" type="button" data-choice-group="roundType" data-value="pest">
+                除三害
+              </button>
+            </div>
+          </div>
+
+          <div class="round-card">
+            <div>
+              <h3>四人本局击杀</h3>
+              <p class="helper-text small">救人每次 +1，杀队友每次 -1；这两项不跟随吃鸡倍率翻倍。</p>
+            </div>
+            <div class="kill-grid" id="killGrid"></div>
+          </div>
+
+          <div class="round-card" id="teamOptions">
+            <div class="card-title-row">
+              <h3>2v2 分队</h3>
+              <button class="mini-button" id="randomPairingBtn" type="button">随机分队</button>
+            </div>
+            <div class="segmented pair-grid" id="pairingOptions" role="group" aria-label="2v2 分队"></div>
+          </div>
+
+          <div class="round-card is-hidden" id="pestOptions">
+            <h3>除三害口径</h3>
+            <label class="field">
+              除害者
+              <select id="pestHero"></select>
+            </label>
+            <div class="segmented stacked" role="group" aria-label="除三害结算模式">
+              <button class="choice is-active" type="button" data-choice-group="pestMode" data-value="duel">
+                逐个对照
+                <small>分别和三个人单挑结算</small>
+              </button>
+              <button class="choice" type="button" data-choice-group="pestMode" data-value="split">
+                三人均摊
+                <small>总差额由三人平分</small>
+              </button>
+              <button class="choice" type="button" data-choice-group="pestMode" data-value="tripleTotal">
+                三人各摊一次总合
+                <small>每人都按总差额结一次</small>
+              </button>
+            </div>
+          </div>
+
+          <div class="round-card settings-card">
+            <div>
+              <h3>吃鸡倍率</h3>
+              <p class="helper-text">本局没吃鸡就是 x1，吃鸡按 x2。需要特殊规则时再用自定义。</p>
+            </div>
+            <div class="settings-stack">
+              <div class="setting-block">
+                <p class="field-label">本局是否吃鸡</p>
+                <div class="segmented compact" role="group" aria-label="吃鸡倍率">
+                  <button class="choice is-active" type="button" data-choice-group="chickenMode" data-value="1">
+                    未吃鸡 x1
+                  </button>
+                  <button class="choice" type="button" data-choice-group="chickenMode" data-value="2">
+                    吃鸡 x2
+                  </button>
+                  <button class="choice" type="button" data-choice-group="chickenMode" data-value="custom">
+                    自定义
+                  </button>
+                </div>
+                <label class="field inline-field is-hidden" id="customChickenField">
+                  自定义吃鸡倍率
+                  <input id="customChicken" type="number" min="1" step="0.5" value="2" />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="commit-row">
+            <button class="primary-button" id="commitRoundBtn" type="button">记入本局</button>
+            <button class="tool-button is-hidden" id="cancelEditBtn" type="button">取消编辑</button>
+          </div>
+        </section>
+
+        <aside class="panel result-panel" aria-live="polite" aria-labelledby="preview-title">
+          <div class="section-head">
+            <div>
+              <p class="kicker">LIVE PREVIEW</p>
+              <h2 id="preview-title">本局预览</h2>
+            </div>
+            <div class="preview-actions">
+              <button class="mini-button" id="copyRoundBtn" type="button">复制本局口径</button>
+              <span class="multiplier-pill" id="multiplierPill">x1</span>
+            </div>
+          </div>
+
+          <div class="metrics" id="metrics"></div>
+          <div class="result-list" id="resultList"></div>
+          <div class="formula-panel">
+            <h3>公式口径</h3>
+            <ol id="formulaList"></ol>
+          </div>
+        </aside>
+      </section>
+
+      <section class="panel history-panel" aria-labelledby="history-title">
+        <div class="section-head">
+          <div>
+            <p class="kicker">ROUND HISTORY</p>
+            <h2 id="history-title">历史记录</h2>
+          </div>
+          <span class="history-total" id="historyTotal">暂无记录</span>
+        </div>
+        <div class="history-list" id="historyList"></div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
